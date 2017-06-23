@@ -100,7 +100,7 @@
 require(&quot;itsa-jsext&quot;);
 
 const React = require(&quot;react&quot;),
-    PropTypes = React.PropTypes,
+    PropTypes = require(&quot;prop-types&quot;),
     Select = require(&quot;itsa-react-select&quot;);
 
 const sortFn = (a, b) =&gt; {
@@ -115,24 +115,13 @@ const sortFn = (a, b) =&gt; {
     return 0;
 };
 
-const MultiSelect = React.createClass({
-
-    propTypes: {
-        /**
-         * The Component its children
-         *
-         * @property children
-         * @type String || Object || Array
-         * @since 15.0.0
-        */
-        // selected: PropTypes.array
-    },
-
-    getDefaultProps() {
-        return {
-            closeOnClick: false
-        };
-    },
+class MultiSelect extends React.Component {
+    constructor(props) {
+        super(props);
+        const instance = this;
+        instance.btnRenderer = instance.btnRenderer.bind(instance);
+        instance.selectedItemRenderer = instance.selectedItemRenderer.bind(instance);
+    }
 
     btnRenderer() {
         // only return something if there are items selected
@@ -144,11 +133,11 @@ const MultiSelect = React.createClass({
             selected = selected.itsa_deepClone().sort(sortFn);
             return selected.map(this.selectedItemRenderer).join(&#x27; &#x27;);
         }
-    },
+    }
 
     selectedItemRenderer(item) {
         return &#x27;&lt;span class=&quot;multiselect-selected-item&quot;&gt;&#x27;+this.props.items[item]+&#x27;&lt;/span&gt;&#x27;;
-    },
+    }
 
     /**
      * React render-method --&gt; renderes the Component.
@@ -170,8 +159,23 @@ const MultiSelect = React.createClass({
             &lt;Select {...props} btnRenderer={this.btnRenderer} className={className} multiSelect={true} /&gt;
         );
     }
+}
 
-});
+MultiSelect.propTypes = {
+    /**
+     * Whether to close the select-list when an item is clicked
+     *
+     * @property closeOnClick
+     * @type Boolean
+     * @default false
+     * @since 15.2.0
+    */
+    closeOnClick: PropTypes.bool,
+};
+
+MultiSelect.defaultProps = {
+    closeOnClick: false
+};
 
 module.exports = MultiSelect;
 

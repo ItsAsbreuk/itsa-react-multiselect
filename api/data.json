@@ -55,18 +55,7 @@
     "classitems": [
         {
             "file": "lib/component.jsx",
-            "line": 38,
-            "description": "The Component its children",
-            "itemtype": "property",
-            "name": "children",
-            "type": "String || Object || Array",
-            "since": "15.0.0",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 70,
+            "line": 59,
             "description": "React render-method --> renderes the Component.",
             "itemtype": "method",
             "name": "render",
@@ -74,6 +63,18 @@
                 "description": "ReactComponent"
             },
             "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 82,
+            "description": "Whether to close the select-list when an item is clicked",
+            "itemtype": "property",
+            "name": "closeOnClick",
+            "type": "Boolean",
+            "default": "false",
+            "since": "15.2.0",
             "class": "Component",
             "module": "component.jsx"
         }

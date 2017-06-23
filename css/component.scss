@@ -20,15 +20,10 @@ $white: #FFF;
         .itsa-button {
             padding-top: 0.3em !important;
             padding-bottom: 0.1em !important;
+            white-space: inherit !important;
         }
         .itsa-button::after {
             bottom: 0.2em;
         }
-    }
-}
-
-.itsa-select {
-    .itsa-button {
-        outline: none;
     }
 }

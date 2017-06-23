@@ -17,7 +17,7 @@
 require("itsa-jsext");
 
 const React = require("react"),
-    PropTypes = React.PropTypes,
+    PropTypes = require("prop-types"),
     Select = require("itsa-react-select");
 
 const sortFn = (a, b) => {
@@ -32,24 +32,13 @@ const sortFn = (a, b) => {
     return 0;
 };
 
-const MultiSelect = React.createClass({
-
-    propTypes: {
-        /**
-         * The Component its children
-         *
-         * @property children
-         * @type String || Object || Array
-         * @since 15.0.0
-        */
-        // selected: PropTypes.array
-    },
-
-    getDefaultProps() {
-        return {
-            closeOnClick: false
-        };
-    },
+class MultiSelect extends React.Component {
+    constructor(props) {
+        super(props);
+        const instance = this;
+        instance.btnRenderer = instance.btnRenderer.bind(instance);
+        instance.selectedItemRenderer = instance.selectedItemRenderer.bind(instance);
+    }
 
     btnRenderer() {
         // only return something if there are items selected
@@ -61,11 +50,11 @@ const MultiSelect = React.createClass({
             selected = selected.itsa_deepClone().sort(sortFn);
             return selected.map(this.selectedItemRenderer).join(' ');
         }
-    },
+    }
 
     selectedItemRenderer(item) {
         return '<span class="multiselect-selected-item">'+this.props.items[item]+'</span>';
-    },
+    }
 
     /**
      * React render-method --> renderes the Component.
@@ -87,7 +76,22 @@ const MultiSelect = React.createClass({
             <Select {...props} btnRenderer={this.btnRenderer} className={className} multiSelect={true} />
         );
     }
+}
 
-});
+MultiSelect.propTypes = {
+    /**
+     * Whether to close the select-list when an item is clicked
+     *
+     * @property closeOnClick
+     * @type Boolean
+     * @default false
+     * @since 15.2.0
+    */
+    closeOnClick: PropTypes.bool,
+};
+
+MultiSelect.defaultProps = {
+    closeOnClick: false
+};
 
 module.exports = MultiSelect;
