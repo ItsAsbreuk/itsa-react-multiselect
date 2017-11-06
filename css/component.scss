@@ -16,12 +16,14 @@ $white: #FFF;
 .itsa-select {
     display: inline-block !important;
     vertical-align: top;
+
     &.itsa-multiselect.has-items {
         .itsa-button {
             padding-top: 0.3em !important;
             padding-bottom: 0.1em !important;
             white-space: inherit !important;
         }
+
         .itsa-button::after {
             bottom: 0.2em;
         }
